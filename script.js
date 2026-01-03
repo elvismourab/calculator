@@ -33,3 +33,28 @@ function operate(num1, num2, operator) {
 
     return result;
 }
+
+function createNumbers() {
+    const numbersArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+    const numbersDiv = document.getElementById('numbers');
+
+    numbersArray.forEach(element => {
+        let button = document.createElement('button');
+        button.textContent = element;
+        numbersDiv.appendChild(button);
+    });
+}
+
+function createCommands() {
+    const commandsArray = ['+', '-', '+', '/', '=', 'clear'];
+    const commandsDiv = document.getElementById('commands');
+
+    commandsArray.forEach(element => {
+        let button = document.createElement('button');
+        button.textContent = element;
+        commandsDiv.appendChild(button);
+    })
+}
+
+createNumbers();
+createCommands();
