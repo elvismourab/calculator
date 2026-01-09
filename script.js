@@ -3,19 +3,19 @@ let num2 = '';
 let operator = '';
 
 function add(num1, num2) {
-    return num1 + num2;
+    return Number(num1) + Number(num2);
 }
 
 function subtract(num1, num2) {
-    return num1 - num2;
+    return Number(num1) - Number(num2);
 }
 
 function multiply(num1, num2) {
-    return num1 * num2;
+    return Number(num1) * Number(num2);
 }
 
 function divide(num1, num2) {
-    return num1 / num2;
+    return Number(num1) / Number(num2);
 }
 
 function operate(num1, num2, operator) {
@@ -25,7 +25,7 @@ function operate(num1, num2, operator) {
             break;
         case '-': result = subtract(num1, num2);
             break;
-        case '*': result = multiply(num1, num2);
+        case 'x': result = multiply(num1, num2);
             break;
         case '/': result = divide(num1, num2);
             break
@@ -36,7 +36,7 @@ function operate(num1, num2, operator) {
 
 function createButtons() {
     const numbersArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-    const commandsArray = ['+', '-', '+', '/', '=', 'clear'];
+    const commandsArray = ['+', '-', 'x', '/', '=', 'clear'];
 
     const numbersDiv = document.getElementById('numbers');
     const commandsDiv = document.getElementById('commands');
@@ -58,37 +58,44 @@ function createButtons() {
     })
 }
 
-createButtons()
+function attributeEvents() {
+    const buttons = document.querySelectorAll('button');
 
-// Create the functions that update one of your number variables when the calculator’s digit buttons are clicked. Your calculator’s display should also update to reflect the value of that number variable.
+    buttons.forEach(element => {
+        element.addEventListener('click', (e) => {
+            const value = e.target.value;
+            const classList = e.target.classList;
+            const inputField = document.getElementById('inputField');
 
-// colocar função separada ao invés de arrow?
-// verificar classe antes de preencher constantes. (se number && num1 === '' ? num1 : num2)
-// exibir valor no input id = result.
+            if (value === 'clear') {
+                num1 = num2 = operator = inputField.value = '';
+                return;
+            }
 
-const buttons = document.querySelectorAll('button');
+            if (value === '=') {
+                num1 = operate(num1, num2, operator);
+                inputField.value = num1;
+                num2 = operator = '';
+                return;
+            }
 
-buttons.forEach(element => {
-    element.addEventListener('click', (e) => {
-        const value = e.target.value;
-        const classList = e.target.classList;
-        const result = document.getElementById('result');
+            if (classList.contains('command')) {
+                operator = value;
+            }
 
-        if (value === 'clear') {
-            num1 = num2 = operator = result.value = '';
-            return;
-        }
-        if (classList.contains('command')) {
-            operator = value;
-        }
-        if (classList.contains('number') && operator === '') {
-            num1 += value;
-        }
-        if (classList.contains('number') && num1 !== '' && operator !== '') {
-            num2 += value;
-        }
+            if (classList.contains('number') && operator === '') {
+                num1 += value;
+            }
 
-        result.value += value;
+            if (classList.contains('number') && num1 !== '' && operator !== '') {
+                num2 += value;
+            }
 
+            inputField.value += value;
+
+        });
     });
-});
+}
+
+createButtons();
+attributeEvents();
