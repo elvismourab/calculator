@@ -72,15 +72,23 @@ buttons.forEach(element => {
     element.addEventListener('click', (e) => {
         const value = e.target.value;
         const classList = e.target.classList;
+        const result = document.getElementById('result');
 
         if (value === 'clear') {
-            num1 = num2 = operator = '';
+            num1 = num2 = operator = result.value = '';
             return;
         }
-        if (classList.contains('number')) {
-            num1 === '' ? num1 = value : num2 = value;
-        } else {
+        if (classList.contains('command')) {
             operator = value;
         }
+        if (classList.contains('number') && operator === '') {
+            num1 += value;
+        }
+        if (classList.contains('number') && num1 !== '' && operator !== '') {
+            num2 += value;
+        }
+
+        result.value += value;
+
     });
 });
