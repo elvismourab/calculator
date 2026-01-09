@@ -62,10 +62,25 @@ createButtons()
 
 // Create the functions that update one of your number variables when the calculator’s digit buttons are clicked. Your calculator’s display should also update to reflect the value of that number variable.
 
+// colocar função separada ao invés de arrow?
+// verificar classe antes de preencher constantes. (se number && num1 === '' ? num1 : num2)
+// exibir valor no input id = result.
+
 const buttons = document.querySelectorAll('button');
 
 buttons.forEach(element => {
     element.addEventListener('click', (e) => {
-        console.log(e.target.value);
-    })
+        const value = e.target.value;
+        const classList = e.target.classList;
+
+        if (value === 'clear') {
+            num1 = num2 = operator = '';
+            return;
+        }
+        if (classList.contains('number')) {
+            num1 === '' ? num1 = value : num2 = value;
+        } else {
+            operator = value;
+        }
+    });
 });
