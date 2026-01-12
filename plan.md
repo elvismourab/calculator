@@ -1,3 +1,5 @@
+# INSTRUCTIONS
+
 Your calculator should not evaluate more than a single pair of numbers at a time
     1. Enter a number (12).
     2. Enter an operator (+).
@@ -18,3 +20,84 @@ Your calculator should not evaluate more than a single pair of numbers at a time
 - Make sure that your calculator only runs an operation when supplied with two numbers and an operator by the user. Example: you enter a number (2), followed by an operator button (+). You press the operator button (+) a second consecutive time. Your calculator should not evaluate this as (2 + 2) and should not display the result (4). If consecutive operator buttons are pressed, your calculator should not run any evaluations, it should only take the last operator entered to be used for the next operation.
 
 - When a result is displayed, pressing a new digit should clear the result and start a new calculation instead of appending the digit to the existing result. Check whether this is the case on your calculator!
+
+---
+
+# PLAN
+
+Pensar em termos de:
+1. Ação do usuário.
+2. Evento disparado.
+3. Ação do evento.
+
+>> ESTADO !!!
+
+---
+
+# VARIÁVEIS INICIAIS:
+
+num1;
+num2;
+operator;
+
+---
+
+# MAPEAMENTO DO FLUXO 12 + 7 -; 19; 1; =; 18
+
+\* Calculadora no estado inicial.
+
+- Usuário aperta o botão '1'
+- VALIDAÇÃO()
+- currentValue = '1'
+- UPDATE_DISPLAY()
+- display exibe '1'
+- Usuário aperta o botão '2'
+- VALIDACAO()
+- currentValue += '2'
+- currentValue === '12'
+- UPDATE_DISPLAY()
+- Usuário aperta o botão '+'
+- VALIDAÇÃO()
+- currentOperator = '+'
+- UPDATE_DISPLAY()
+- display continua exibindo currentValue
+- Usuário aperta o botão '7'
+- VALIDAÇÃO()
+- nextValue = '7'
+- UPDATE_DISPLAY()
+
+
+---
+
+**VALIDAÇÃO()**
+\* recebe VALOR
+
+SE VALOR.TIPO === CLEAR
+    LIMPA TODAS AS VARIÁVEIS
+    LIMPA DISPLAY
+
+SE VALOR.TIPO === OPERADOR
+    SE currentOperator === ''
+        currentOperator = VALOR
+    SE currentOperator !== ''
+        nextOperator = VALOR
+
+SE VALOR.TIPO === NUMERO
+    SE currentOperator === ''
+        currentValue += VALOR
+    SE currentOperator !== ''
+        nextValue += VALOR
+
+SE VALOR.TIPO === OPERAÇÃO
+
+RETORNA (valor, tipo)
+
+---
+
+**UPDATE_DISPLAY()**
+\* recebe VALOR (?)
+
+SE (VALOR.TIPO === NUMERO) && nextValue === ''
+    EXIBIR O VALOR NO DISPLAY (currentValue)
+SE (VALOR.TIPO === NUMERO) && nextValue |== ''
+    EXIBIR O VALOR NO DISPLAY (nextValue)
