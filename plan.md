@@ -126,7 +126,7 @@ SE (VALOR.TIPO === NUMERO) && nextValue |== ''
 
 ---
 
-**FAZER_OPERACAO()**
+**FAZER_OPERACAO()** (operate)
 - sum / sub / multiply / divide
 - currentValue = resultado da operação.
 SE nextOperator IN ('+', '-', '*', '/')
