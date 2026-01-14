@@ -15,10 +15,49 @@ const commands = {
 
 const display = document.getElementById('display');
 
-function operate() {
-    return '';
+function sum() {
+    return (Number(currentValue) + Number(nextValue));
 }
 
+function subtract() {
+    return (Number(currentValue) - Number(nextValue));
+}
+
+function multiply() {
+    return (Number(currentValue) * Number(nextValue));
+}
+
+function divide() {
+    return (Number(currentValue) / Number(nextValue));
+}
+
+function operate() {
+    let result = ''
+    switch (currentOperator) {
+        case commands.ADD:
+            result = sum();
+            break;
+        case commands.SUBTRACT:
+            result = subtract();
+            break;
+        case commands.MULTIPLY:
+            result = multiply();
+            break;
+        case commands.DIVIDE:
+            result = divide();
+            break;
+    }
+
+    currentValue = result;
+    if (nextOperator === commands.ADD || nextOperator === commands.SUBTRACT || nextOperator === commands.MULTIPLY || nextOperator === commands.DIVIDE) {
+        console.log('this');
+        currentOperator = nextOperator;
+    }
+    nextOperator = '';
+    nextValue = '';
+
+    console.log(result);
+}
 
 function validate(e) {
     const value = e.target.value;
