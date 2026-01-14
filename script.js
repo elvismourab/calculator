@@ -52,11 +52,13 @@ function operate() {
     if (nextOperator === commands.ADD || nextOperator === commands.SUBTRACT || nextOperator === commands.MULTIPLY || nextOperator === commands.DIVIDE) {
         console.log('this');
         currentOperator = nextOperator;
+    } else {
+        currentOperator = '';
     }
     nextOperator = '';
     nextValue = '';
 
-    console.log(result);
+    display.value = result;
 }
 
 function validate(e) {
@@ -68,15 +70,17 @@ function validate(e) {
         currentOperator = '';
         nextValue = '';
         nextOperator = '';
-        display.textContent = '';
+        display.value = '';
         return;
     }
 
     if (type.contains('number')) {
         if (currentOperator === '') {
             currentValue += value;
+            display.value = currentValue;
         } else {
             nextValue += value;
+            display.value = nextValue;
         }
     }
 
