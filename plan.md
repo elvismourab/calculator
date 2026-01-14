@@ -88,7 +88,6 @@ nextOperator
 - Usuário aperta o botão '='
 - VALIDAÇÃO()
 
-
 ---
 
 **VALIDAÇÃO()**

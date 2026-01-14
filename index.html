@@ -10,15 +10,32 @@
 </head>
 
 <body>
-    <div id="calculator">
-        <div id="output-screen">
-            <label for="inputField">Result:</label>
-            <input type="text" id="inputField" name="inputField" placeholder="0.00" disabled>
+    <div>
+        <div>
+            <label for="display"></label>
+            <input type="text" id="display" name="display" placeholder="0.00" disabled>
         </div>
-        <div id="numbers"></div>
-        <div id="commands"></div>
+        <div id="numbers-div">
+            <button class="number" value="1">1</button>
+            <button class="number" value="2">2</button>
+            <button class="number" value="3">3</button>
+            <button class="number" value="4">4</button>
+            <button class="number" value="5">5</button>
+            <button class="number" value="6">6</button>
+            <button class="number" value="7">7</button>
+            <button class="number" value="8">8</button>
+            <button class="number" value="9">9</button>
+            <button class="number" value="0">0</button>
+        </div>
+        <div id="commands-div">
+            <button class="command" value="+">+</button>
+            <button class="command" value="-">-</button>
+            <button class="command" value="x">x</button>
+            <button class="command" value="/">/</button>
+            <button class="command" value="=">=</button>
+            <button class="command" value="CLEAR">CLEAR</button>
+        </div>
     </div>
-
 </body>
 
 </html>
