@@ -22,7 +22,8 @@ function operate() {
 
 function validate(e) {
     const value = e.target.value;
-    console.log(value);
+    const type = e.target.classList;
+    console.log(e);
 
     if (value === commands.CLEAR) {
         currentValue = '';
@@ -30,6 +31,10 @@ function validate(e) {
         nextValue = '';
         nextOperator = '';
         display.textContent = '';
+        return;
+    }
+    if (type.contains('command')) {
+        console.log('É um comando!')
     }
 }
 
