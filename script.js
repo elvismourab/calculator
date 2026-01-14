@@ -23,7 +23,6 @@ function operate() {
 function validate(e) {
     const value = e.target.value;
     const type = e.target.classList;
-    console.log(e);
 
     if (value === commands.CLEAR) {
         currentValue = '';
@@ -33,8 +32,25 @@ function validate(e) {
         display.textContent = '';
         return;
     }
+
+    if (type.contains('number')) {
+        if (currentOperator === '') {
+            currentValue += value;
+        } else {
+            nextValue += value;
+        }
+    }
+
     if (type.contains('command')) {
-        console.log('É um comando!')
+        if (currentOperator === '') {
+            currentOperator = value;
+        } else {
+            nextOperator = value;
+            operate();
+        }
+
+        // RETORNA (valor, tipo) ???
+        return;
     }
 }
 
