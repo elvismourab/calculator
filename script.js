@@ -3,7 +3,6 @@ let currentOperator = '';
 let nextValue = '';
 let nextOperator = '';
 
-const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 const commands = {
     ADD: '+',
     SUBTRACT: '-',
@@ -28,6 +27,9 @@ function multiply() {
 }
 
 function divide() {
+    if (Number(nextValue) === 0) {
+        return null;
+    }
     return (Number(currentValue) / Number(nextValue));
 }
 
@@ -46,15 +48,31 @@ function operate() {
         case commands.DIVIDE:
             result = divide();
             break;
+        default:
+            result = null;
+    }
+
+    if (result === null) {
+        currentValue = '';
+        currentOperator = '';
+        nextValue = '';
+        nextOperator = '';
+        display.value = 'BEEP BOOP ERROR';
+        return;
     }
 
     currentValue = result;
+
     if (nextOperator === commands.ADD || nextOperator === commands.SUBTRACT || nextOperator === commands.MULTIPLY || nextOperator === commands.DIVIDE) {
-        console.log('this');
         currentOperator = nextOperator;
     } else {
         currentOperator = '';
     }
+
+    if (nextOperator === commands.EQUALS) {
+        currentValue = '';
+    }
+
     nextOperator = '';
     nextValue = '';
 
@@ -85,15 +103,12 @@ function validate(e) {
     }
 
     if (type.contains('command')) {
-        if (currentOperator === '') {
+        if (currentOperator === '' && nextValue === '') {
             currentOperator = value;
         } else {
             nextOperator = value;
             operate();
         }
-
-        // RETORNA (valor, tipo) ???
-        return;
     }
 }
 
