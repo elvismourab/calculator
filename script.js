@@ -106,6 +106,8 @@ function validate(e) {
     if (type.contains('command')) {
         if ((currentOperator === '' && nextValue === '') || currentOperator === commands.EQUALS) {
             currentOperator = value;
+        } else if (currentOperator !== '' && nextValue === '') {
+            nextValue = value;
         } else {
             nextOperator = value;
             operate();
