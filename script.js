@@ -15,6 +15,7 @@ const commands = {
 
 const display = document.getElementById('display');
 const point = document.getElementById('point');
+const backspace = document.getElementById('backspace');
 
 function sum() {
     return (Number(currentValue) + Number(nextValue));
@@ -77,6 +78,20 @@ function operate() {
     display.value = Number(result.toFixed(2));
 }
 
+function handleBackspace() {
+    if (display.value == currentValue) {
+        str = String(currentValue).slice(0, -1);
+        currentValue = display.value = str;
+    } else if (display.value === nextValue) {
+        str = nextValue.slice(0, -1);
+        nextValue = display.value = str;
+    }
+
+    if (!str.includes('.')) {
+        point.disabled = false;
+    }
+}
+
 function validate(e) {
     const value = e.target.value;
     const type = e.target.classList;
@@ -95,6 +110,12 @@ function validate(e) {
         if (e.target.id === 'point') {
             point.disabled = true;
         }
+
+        if (e.target.id === 'backspace') {
+            handleBackspace();
+            return;
+        }
+
         if (currentOperator === commands.EQUALS) {
             currentOperator = '';
             currentValue = value;
