@@ -39,7 +39,7 @@
 
 .command {
     height: 4rem;
-    width: 4rem;
+    width: 6rem;
 }
 
 .number,
@@ -51,4 +51,5 @@
 
 button:hover {
     background-color: rgb(235, 218, 228);
+    margin-top: -0.2rem;
 }

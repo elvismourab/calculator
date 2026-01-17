@@ -73,7 +73,7 @@ function operate() {
     nextOperator = '';
     nextValue = '';
 
-    display.value = result;
+    display.value = Number(result.toFixed(2));
 }
 
 function validate(e) {
@@ -94,8 +94,7 @@ function validate(e) {
             currentOperator = '';
             currentValue = value;
             display.value = currentValue;
-        }
-        if (currentOperator === '') {
+        } else if (currentOperator === '') {
             currentValue += value;
             display.value = currentValue;
         } else {
