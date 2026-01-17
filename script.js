@@ -10,10 +10,11 @@ const commands = {
     MULTIPLY: 'x',
     DIVIDE: '/',
     EQUALS: '=',
-    CLEAR: 'CLEAR',
+    AC: 'AC',
 };
 
 const display = document.getElementById('display');
+const point = document.getElementById('point');
 
 function sum() {
     return (Number(currentValue) + Number(nextValue));
@@ -80,16 +81,20 @@ function validate(e) {
     const value = e.target.value;
     const type = e.target.classList;
 
-    if (value === commands.CLEAR) {
+    if (value === commands.AC) {
         currentValue = '';
         currentOperator = '';
         nextValue = '';
         nextOperator = '';
         display.value = '';
+        point.disabled = false;
         return;
     }
 
     if (type.contains('number')) {
+        if (e.target.id === 'point') {
+            point.disabled = true;
+        }
         if (currentOperator === commands.EQUALS) {
             currentOperator = '';
             currentValue = value;
@@ -106,6 +111,7 @@ function validate(e) {
     if (type.contains('command')) {
         if ((currentOperator === '' && nextValue === '') || currentOperator === commands.EQUALS) {
             currentOperator = value;
+            point.disabled = false;
         } else if (currentOperator !== '' && nextValue === '') {
             nextValue = value;
         } else {
