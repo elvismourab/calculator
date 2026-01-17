@@ -1,6 +1,6 @@
-# Calculator
+# Calculadora
 
-> Uma calculadora simples feita com JavaScript, HTML, and CSS.
+> Uma calculadora simples feita com JavaScript, HTML e CSS.
 
 ## 🚀 Live Preview
 
@@ -15,7 +15,7 @@ Este projeto faz parte do currículo do [The Odin Project](https://www.theodinpr
 [Project: Calculator](https://www.theodinproject.com/lessons/foundations-calculator)
 
 ## ✨ Funcionalidades
-- Operações básica.
+- Operações básicas.
 - Suporte a números de ponto flutuante.
 - Suporte a teclado.
 

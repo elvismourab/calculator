@@ -161,21 +161,24 @@ const buttons = document.querySelectorAll('button');
 });
 
 document.addEventListener('keydown', (e) => {
-    const key = String(e.key);
-    let validKey = false;
+    const key = e.key;
+    let button;
 
-    if (Object.values(commands).includes(key)) {
-        validKey = true;
-        e.target.classList = 'command';
-    } else if (Object.values(validValues).includes(key)) {
-        validKey = true;
-        e.target.classList = 'number';
+    if (key === commands.ENTER) {
+        button = document.querySelector('button[value="="]');
+    } else if (key === commands.MULTIPLY || key === commands.ALT_MULTIPLY) {
+        button = document.querySelector('button[value="x"]');
+    } else if (key === 'Backspace') {
+        button = document.getElementById('Backspace');
+    } else if (key.toUpperCase() === 'C' || key === 'Delete') {
+        button = document.querySelector('button[value="AC"]');
+    }
+    else {
+        button = document.querySelector(`button[value="${key}"]`);
     }
 
-    e.target.value = key === commands.ENTER ? commands.EQUALS : key;
-    e.target.id = key;
-
-    if (validKey === true) {
-        validate(e);
+    if (button) {
+        e.preventDefault();
+        button.click();
     }
-})
+});
