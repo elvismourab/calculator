@@ -4,6 +4,7 @@ let nextValue = '';
 let nextOperator = '';
 let result = ''
 
+const validValues = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', 'Backspace']
 const commands = {
     ADD: '+',
     SUBTRACT: '-',
@@ -11,11 +12,13 @@ const commands = {
     DIVIDE: '/',
     EQUALS: '=',
     AC: 'AC',
+    ENTER: 'Enter',
+    ALT_MULTIPLY: '*'
 };
 
 const display = document.getElementById('display');
-const point = document.getElementById('point');
-const backspace = document.getElementById('backspace');
+const point = document.getElementById('.');
+const backspace = document.getElementById('Backspace');
 
 function sum() {
     return (Number(currentValue) + Number(nextValue));
@@ -46,6 +49,7 @@ function operate() {
             result = subtract();
             break;
         case commands.MULTIPLY:
+        case commands.ALT_MULTIPLY:
             result = multiply();
             break;
         case commands.DIVIDE:
@@ -107,11 +111,11 @@ function validate(e) {
     }
 
     if (type.contains('number')) {
-        if (e.target.id === 'point') {
+        if (e.target.id === '.') {
             point.disabled = true;
         }
 
-        if (e.target.id === 'backspace') {
+        if (e.target.id === 'Backspace') {
             handleBackspace();
             return;
         }
@@ -146,3 +150,25 @@ const buttons = document.querySelectorAll('button');
 [...buttons].forEach(element => {
     element.addEventListener('click', (e) => validate(e))
 });
+
+document.addEventListener('keydown', (e) => {
+
+    const key = String(e.key);
+    let validKey = false;
+    if (Object.values(commands).includes(key)) {
+        validKey = true;
+        e.target.classList = 'command';
+        if (['.', 'Backspace'].includes(key)) {
+        }
+    } else if (Object.values(validValues).includes(key)) {
+        validKey = true;
+        e.target.classList = 'number';
+    }
+
+    e.target.value = key === commands.ENTER ? commands.EQUALS : key;
+    e.target.id = key;
+
+    if (validKey === true) {
+        validate(e);
+    }
+})
