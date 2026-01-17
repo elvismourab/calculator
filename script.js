@@ -2,9 +2,9 @@ let currentValue = '';
 let currentOperator = '';
 let nextValue = '';
 let nextOperator = '';
-let result = ''
+let result = '';
 
-const validValues = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', 'Backspace']
+const validValues = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.', 'Backspace'];
 const commands = {
     ADD: '+',
     SUBTRACT: '-',
@@ -13,7 +13,7 @@ const commands = {
     EQUALS: '=',
     AC: 'AC',
     ENTER: 'Enter',
-    ALT_MULTIPLY: '*'
+    ALT_MULTIPLY: '*',
 };
 
 const display = document.getElementById('display');
@@ -83,6 +83,7 @@ function operate() {
 }
 
 function handleBackspace() {
+    let str = '';
     if (display.value == currentValue) {
         str = String(currentValue).slice(0, -1);
         currentValue = display.value = str;
@@ -93,6 +94,41 @@ function handleBackspace() {
 
     if (!str.includes('.')) {
         point.disabled = false;
+    }
+}
+
+function handleNumber(e, value) {
+    if (e.target.id === '.') {
+        point.disabled = true;
+    }
+
+    if (e.target.id === 'Backspace') {
+        handleBackspace();
+        return;
+    }
+
+    if (currentOperator === commands.EQUALS) {
+        currentOperator = '';
+        currentValue = value;
+        display.value = currentValue;
+    } else if (currentOperator === '') {
+        currentValue += value;
+        display.value = currentValue;
+    } else {
+        nextValue += value;
+        display.value = nextValue;
+    }
+}
+
+function handleCommand(value) {
+    if ((currentOperator === '' && nextValue === '') || currentOperator === commands.EQUALS) {
+        currentOperator = value;
+        point.disabled = false;
+    } else if (currentOperator !== '' && nextValue === '') {
+        nextValue = value;
+    } else {
+        nextOperator = value;
+        operate();
     }
 }
 
@@ -111,55 +147,26 @@ function validate(e) {
     }
 
     if (type.contains('number')) {
-        if (e.target.id === '.') {
-            point.disabled = true;
-        }
-
-        if (e.target.id === 'Backspace') {
-            handleBackspace();
-            return;
-        }
-
-        if (currentOperator === commands.EQUALS) {
-            currentOperator = '';
-            currentValue = value;
-            display.value = currentValue;
-        } else if (currentOperator === '') {
-            currentValue += value;
-            display.value = currentValue;
-        } else {
-            nextValue += value;
-            display.value = nextValue;
-        }
+        handleNumber(e, value);
     }
 
     if (type.contains('command')) {
-        if ((currentOperator === '' && nextValue === '') || currentOperator === commands.EQUALS) {
-            currentOperator = value;
-            point.disabled = false;
-        } else if (currentOperator !== '' && nextValue === '') {
-            nextValue = value;
-        } else {
-            nextOperator = value;
-            operate();
-        }
+        handleCommand(value);
     }
 }
 
 const buttons = document.querySelectorAll('button');
 [...buttons].forEach(element => {
-    element.addEventListener('click', (e) => validate(e))
+    element.addEventListener('click', (e) => validate(e));
 });
 
 document.addEventListener('keydown', (e) => {
-
     const key = String(e.key);
     let validKey = false;
+
     if (Object.values(commands).includes(key)) {
         validKey = true;
         e.target.classList = 'command';
-        if (['.', 'Backspace'].includes(key)) {
-        }
     } else if (Object.values(validValues).includes(key)) {
         validKey = true;
         e.target.classList = 'number';
