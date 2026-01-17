@@ -2,6 +2,7 @@ let currentValue = '';
 let currentOperator = '';
 let nextValue = '';
 let nextOperator = '';
+let result = ''
 
 const commands = {
     ADD: '+',
@@ -34,7 +35,7 @@ function divide() {
 }
 
 function operate() {
-    let result = ''
+    result = ''
     switch (currentOperator) {
         case commands.ADD:
             result = sum();
@@ -63,14 +64,10 @@ function operate() {
 
     currentValue = result;
 
-    if (nextOperator === commands.ADD || nextOperator === commands.SUBTRACT || nextOperator === commands.MULTIPLY || nextOperator === commands.DIVIDE) {
+    if (nextOperator === commands.ADD || nextOperator === commands.SUBTRACT || nextOperator === commands.MULTIPLY || nextOperator === commands.DIVIDE || nextOperator === commands.EQUALS) {
         currentOperator = nextOperator;
     } else {
         currentOperator = '';
-    }
-
-    if (nextOperator === commands.EQUALS) {
-        currentValue = '';
     }
 
     nextOperator = '';
@@ -93,6 +90,11 @@ function validate(e) {
     }
 
     if (type.contains('number')) {
+        if (currentOperator === commands.EQUALS) {
+            currentOperator = '';
+            currentValue = value;
+            display.value = currentValue;
+        }
         if (currentOperator === '') {
             currentValue += value;
             display.value = currentValue;
@@ -103,7 +105,7 @@ function validate(e) {
     }
 
     if (type.contains('command')) {
-        if (currentOperator === '' && nextValue === '') {
+        if ((currentOperator === '' && nextValue === '') || currentOperator === commands.EQUALS) {
             currentOperator = value;
         } else {
             nextOperator = value;
