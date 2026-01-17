@@ -1,33 +1,36 @@
-# calculator
+# Calculator
 
-> Uma breve descrição de uma ou duas frases sobre o que é o projeto.
+> Uma calculadora simples feita com JavaScript, HTML, and CSS.
 
 ## 🚀 Live Preview
 
-**[Clique aqui para testar o projeto](URL_DO_SEU_PROJETO_AQUI)**
+**[Clique aqui para testar o projeto](https://elvismourab.github.io/calculator/)**
 
-![Screenshot ou GIF do seu projeto](URL_DA_IMAGEM_AQUI)
+![Project: Calculator](calculator-print.png)
 
 ## 📖 Descrição
 
-Este projeto faz parte do currículo do [The Odin Project](https://www.theodinproject.com). O objetivo é aplicar os aprendizados sobre manipulação do DOM e flexbox.
+Este projeto faz parte do currículo do [The Odin Project](https://www.theodinproject.com). O objetivo é aplicar os fundamentos do Javascript aprendidos por todo o <i>Foundations Course</i>.
 
-[Link da lição](https://www.theodinproject.com)
+[Project: Calculator](https://www.theodinproject.com/lessons/foundations-calculator)
 
 ## ✨ Funcionalidades
-- Funcionalidade 1: O que ela faz.
-- Funcionalidade 2: O que ela faz.
-- Funcionalidade 3: O que ela faz.
+- Operações básica.
+- Suporte a números de ponto flutuante.
+- Suporte a teclado.
 
 ## 🛠️ Tech Stack
 - HTML5
-- CSS3 (Talvez Flexbox, Grid)
+- CSS3
 - JavaScript
-- (Qualquer outra ferramenta ou biblioteca, como Webpack, etc.)
 
 ## 🧠 O que aprendi
 
+- **Separar estrutura e comportamento**: Elementos que existem sempre devem estar no HTML (estrutura semântica, acessibilidade e desempenho). Elementos que mudam durante a execução ou nascem por interação devem ser criados/geridos pelo JavaScript (estado/dados).
 
+- **Pensar em termos de estado**: Modelar a calculadora como estado facilita lógica e previsibilidade. No projeto usei quatro variáveis-chave: currentValue, nextValue, currentOperator, nextOperator — cada ação do usuário transforma esse estado de forma determinística.
+
+- **Mapear o fluxo do usuário antes de implementar**: Analisar e desenhar o fluxo (eventos → estado → transição → ação) foi decisivo para resolver comportamentos ambíguos e evitar bugs. Mapear casos (numbers, commands) tornou a implementação limpa e testável.
 
 ## 💻 Como Executar Localmente
 
